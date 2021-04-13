@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+	<div class="container" data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+		<form th:action="@{/views/consultas/buscarRegistroFechaHora}"
+			method="post" th:object="${registroForm}" class="row">
+			
+			<div class="form-group col-md-6">
+				<label for="date">Fecha inicio:</label>
+				<div class="input-group date col-md-12" id="datetimepicker1"
+					data-target-input="nearest">
+					<input type="text" class="form-control datetimepicker-input"
+						data-target="#datetimepicker1"
+						th:field="*{fechaDesde}" id="date" placeholder="Ingrese Fecha" />
+					<div class="input-group-append" data-target="#datetimepicker1"
+						data-toggle="datetimepicker">
+						<div class="input-group-text">
+							<i class="fa fa-calendar-alt"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="date2">Fecha Fin:</label>
+				<div class="input-group date col-md-12" id="datetimepicker2"
+					data-target-input="nearest">
+					<input type="text" class="form-control datetimepicker-input"
+						data-target="#datetimepicker2"
+						th:field="*{fechaHasta}" id="date2"
+						placeholder="Ingrese Fecha" />
+					<div class="input-group-append" data-target="#datetimepicker2"
+						data-toggle="datetimepicker">
+						<div class="input-group-text">
+							<i class="fa fa-calendar-alt"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-md-8">
+				<label class="col-form-label" for="localidad">Localidad</label>
+				<select th:field="*{localidad.nombre}"
+					class="form-control form-control-sm col-md-8 ml-2" id="localidad">
+					<option th:each="localidad : ${listaLocalidad}"
+						th:value="${localidad.nombre}" th:text="${localidad.nombre}"></option>
+				</select>
+			</div>
+
+			<div class="form-group col-md-6">
+				<input class="btn btn-outline-success my-2 my-sm-0" type="submit"
+					value="Buscar Registros">
+			</div>
+		</form>
+
+		<h1>Vehiculos</h1>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Id-Registro</th>
+					<th scope="col">Patente</th>
+					<th scope="col">Titular</th>
+					<th scope="col">Marca</th>
+					<th scope="col">Modelo</th>
+					<th scope="col">Tipo</th>
+					<th scope="col">Tripulantes</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="lista: ${listaFecha}">
+					<td th:text="${lista.id}"></td>
+					<td th:text="${lista.vehiculo.patente}"></td>
+					<td th:text="${lista.vehiculo.titular}"></td>
+					<td th:text="${lista.vehiculo.marca}"></td>
+					<td th:text="${lista.vehiculo.modelo}"></td>
+					<td th:text="${lista.vehiculo.tipo}"></td>
+					<td><a type="button" class="btn btn-danger btn-sm"
+						title="Ver Tripulantes"
+						th:href="@{/views/consultas/registro/}+${lista.id}">Ver</a></td>
+			</tbody>
+		</table>
+
+		<h1>Tripulantes</h1>
+		<table class="table" id="tableTripulantes">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Documento</th>
+					<th scope="col">Apellido</th>
+					<th scope="col">Nombres</th>
+					<th scope="col">Nacionalidad</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="lista: ${tripulantes}">
+					<td th:text="${lista.documento}"></td>
+					<td th:text="${lista.apellidos}"></td>
+					<td th:text="${lista.nombres}"></td>
+					<td th:text="${lista.nacionalidad}"></td>
+			</tbody>
+		</table>
+
+	</div>
+
+	<footer th:replace="plantilla/template :: footer"></footer>
+	<script>
+		$.fn.datetimepicker.Constructor.Default = $.extend({},
+				$.fn.datetimepicker.Constructor.Default, {
+					icons : {
+						time : 'far fa-clock',
+						date : 'far fa-calendar',
+						up : 'fas fa-arrow-up',
+						down : 'fas fa-arrow-down',
+						previous : 'fas fa-chevron-left',
+						next : 'fas fa-chevron-right',
+						today : 'far fa-calendar-check-o',
+						clear : 'far fa-trash',
+						close : 'far fa-times'
+					}
+				});
+		
+		
+		$('#datetimepicker1').datetimepicker({
+			format : 'DD/MM/YYYY HH:mm:ss'
+		});
+
+		$('#datetimepicker2').datetimepicker({
+			format : 'DD/MM/YYYY HH:mm:ss'
+		});
+	</script>
+
+
+
+</body>
+</html>

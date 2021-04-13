@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+	<div class="container">
+		<div class="card bg-light mt-4">
+			<div class="card-header bg-dark text-white" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<form th:action="@{/views/registros/registroTracking}" th:object="${vehiculo}"
+					method="post">
+					<input type="hidden" th:field="*{id}">
+					<div class="form-group row">
+						<label class="col-md-2" for="patente">Patente</label> <input
+							type="text" class="form-control form-control-sm col-md-6"
+							id="patente" th:field="*{patente}"> <small
+							class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('patente')}"
+							th:errors="${patente}"></small>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2" for="color">Color</label> <input
+							type="text" class="form-control form-control-sm col-md-6"
+							id="color" th:field="*{color}"> <small
+							class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('color')}"
+							th:errors="color"></small>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-md-2" for="titular">Titular</label>
+						<input type="text" th:field="*{titular}"
+							class="form-control form-control-sm col-md-6" id="nombreUsuario">
+						<small class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('titular')}"
+							th:errors="${titular}"></small>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-md-2" for="marca">Marca</label>
+						<select th:field="*{marca}"
+							class="form-control form-control-sm col-md-6" id="marca">
+							<option th:value="ford">Ford</option>
+							<option th:value="vol">Vol</option>
+							<option th:value="peugeot">Peugeot</option>
+
+						</select>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-md-2" for="modelo">Modelo</label> <input
+							th:field="*{modelo}" type="text"
+							class="form-control form-control-sm col-md-6" id="modelo">
+						<small class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}"></small>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-md-2" for="tipo">Tipo</label>
+						<select th:field="*{tipo}"
+							class="form-control form-control-sm col-md-6" id="tipo">
+							<option th:value="camion">Camion</option>
+							<option th:value="camioneta">Camioneta</option>
+							<option th:value="automovil">Automovil</option>
+
+						</select>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-md-2" for="numeroChasis">Numero Chasis</label>
+						<input type="text" th:field="*{numeroChasis}"
+							class="form-control form-control-sm col-md-6" id="numeroChasis">
+						<small class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('numeroChasis')}"
+							th:errors="${numeroChasis}"></small>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-md-2" for="numeroMotor">Numero Motor</label>
+						<input type="text" th:field="*{numeroMotor}"
+							class="form-control form-control-sm col-md-6" id="numeroMotor">
+						<small class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('numeroMotor')}"
+							th:errors="${numeroMotor}"></small>
+					</div>
+
+					<div class="form-group row">
+						<small class="form-text text-danger col-md-4 offset-2"
+							th:text="${usuarioEncontrado}"></small>
+					</div>
+
+					<div class="card-footer bg-dark">
+						<a class="btn btn-secondary" th:href="@{/views/registros/}">Cancelar</a>
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#modalAgregar">Guardar</button>
+					</div>
+
+					<!-- Modal -->
+					<div class="modal fade" id="modalAgregar" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Formulario
+										Usuario</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">¿Desea guardar los cambios?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">No</button>
+									<input type="submit" class="btn btn-primary" value="Si" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--fin Modal -->
+
+				</form>
+
+
+			</div>
+
+		</div>
+
+
+	</div>
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>

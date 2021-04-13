@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+
+	<div class="container">
+		<div class="container theme-showcase" role="main">
+			<hr class="featurette-divider">
+			<img th:src="@{/images/login.png}" width="136" height="136"
+				class="center">
+			<form class="form-signin" th:action="@{/login}" method="post">
+				<h3 class="form-signin-heading text-center">Iniciar Session</h3>
+				<label for="username" class="sr-only">Usuario</label> <input
+					type="text" id="username" name="username" class="form-control"
+					placeholder="Usuario" required autofocus> <label
+					for="password" class="sr-only">Contraseña</label> <input
+					type="password" id="password" name="password" class="form-control"
+					placeholder="Password" required>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+				<div class="alert alert-danger text-center"
+					th:if="${formLoginErrorMessage}" th:text="${formLoginErrorMessage}">
+					Name Error</div>
+			</form>
+
+			<div th:if="${param.error}" class="alert alert-danger" role="alert">
+				Combinacion invalida de usuario y contraseña</div>
+			<div th:if="${param.logout}" class="alert alert-success" role="alert">
+				Ha salido del Sistema</div>
+
+		</div>
+	</div>
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>

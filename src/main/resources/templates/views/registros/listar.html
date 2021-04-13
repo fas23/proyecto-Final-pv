@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+	<div class="container">
+		<h1 class="text-center" th:text="${titulo}"></h1>
+	</div>
+
+	<div class="container">
+		<a class="btn btn-primary btn-sm mb-3"
+			th:href="@{/views/registros/}" th:text="'Nuevo Registro'"
+			title="Crear Nuevo Registro"></a>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Fecha</th>
+					<th scope="col">Patente Vehiculo</th>
+					<th scope="col">Localidad</th>
+					<th scope="col">Detalle Lugar</th>
+					<th scope="col">Listado Tripulantes</th>
+				</tr>
+
+
+
+			</thead>
+			<tbody>
+				<tr th:each="registros:${listaRegistros}">
+					<th scope="row" th:text="${registros.id}"></th>
+					<td th:text="${registros.fechaHora}"></td>
+					<td th:text="${registros.vehiculo.patente}"></td>
+					<td th:text="${registros.localidad.nombre}"></td>
+					<td th:text="${registros.detalleLugarRegistro}"></td>
+					<td><th:block th:each="lista,iter: ${registros.tripulantes}">
+							<label th:text="${lista.nombres}"></label>
+							<label th:text="${lista.apellidos}"></label>
+							<th:block th:if="${!iter.last}">, </th:block>
+						</th:block></td>
+				</tr>
+
+
+			</tbody>
+		</table>
+
+
+	</div>
+
+
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>

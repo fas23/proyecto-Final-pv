@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+	<div class="container">
+		<div class="card bg-light mt-4">
+			<div class="card-header bg-dark text-white" th:text="${titulo}"></div>
+			<div class="card-body">
+				<!--  th:action="@{/views/usuarios/save}"-->
+				<form
+					th:action="${editMode}?@{/views/usuarios/edit}:@{/views/usuarios/save}"
+					th:object="${usuario}" method="post">
+					<input type="hidden" th:field="*{id}" th:if="${editMode}">
+					<input type="hidden" th:field="*{password}" th:if="${editMode}">
+					<div class="form-group row">
+						<label class="col-md-2" for="nombreReal">Nombre Real</label> <input
+							type="text" class="form-control form-control-sm col-md-6"
+							id="nombreReal" th:field="*{nombreReal}"> <small
+							class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('nombreReal')}"
+							th:errors="*{nombreReal}"></small>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2" for="apellidoReal">Apellido Real</label> <input
+							type="text" class="form-control form-control-sm col-md-6"
+							id="apellidoReal" th:field="*{apellidoReal}"> <small
+							class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('apellidoReal')}"
+							th:errors="*{apellidoReal}"></small>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-md-2" for="nombreUsuario">Nombre Usuario</label>
+						<input type="text" th:field="*{nombreUsuario}"
+							class="form-control form-control-sm col-md-6" id="nombreUsuario">
+						<small class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('nombreUsuario')}"
+							th:errors="*{nombreUsuario}"></small>
+					</div>
+
+					<div class="form-group row"
+						th:if="${editMode==null or editMode==false}">
+						<label class="col-md-2" for="password">Password</label> <input
+							th:field="*{password}" type="password"
+							class="form-control form-control-sm col-md-6" id="password">
+						<small class="form-text text-danger col-md-4 offset-2"
+							th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-md-2" for="tipoUsuario">Tipo de Usuario</label>
+						<select th:field="*{tipoUsuario}"
+							class="form-control form-control-sm col-md-6" id="tipoUsuario">
+							<option th:value="administrador">Administrador</option>
+							<option th:value="registrador">Registrador</option>
+							<option th:value="consultor">Consultor</option>
+
+						</select>
+					</div>
+
+					<div class="form-group row">
+						<small class="form-text text-danger col-md-4 offset-2"
+							th:text="${usuarioEncontrado}"></small>
+					</div>
+
+
+					<div class="card-footer bg-dark">
+						<a class="btn btn-secondary" th:href="@{/views/usuarios/cancelar}">Cancelar</a>
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#modalAgregar">Guardar</button>
+					</div>
+
+					<div class="alert alert-danger text-center" th:if="${formUsuarioErrorMessage}"
+						role="alert" th:text=${formUsuarioErrorMessage}>Name error</div>
+
+					<!-- Modal -->
+					<div class="modal fade" id="modalAgregar" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Formulario
+										Usuario</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">¿Desea guardar los cambios?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Cancelar</button>
+									<input type="submit" class="btn btn-primary"
+										value="Guardar Cambios"
+										th:value="${editMode}?'Guardar Usuario':'Crear Usuario'" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--fin Modal -->
+
+				</form>
+
+
+			</div>
+
+		</div>
+
+
+
+
+	</div>
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>

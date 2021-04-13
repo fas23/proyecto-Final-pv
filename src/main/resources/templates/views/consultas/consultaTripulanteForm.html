@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Documento</th>
+					<th scope="col">Apellidos</th>
+					<th scope="col">Nombres</th>
+					<th scope="col">Nacionalidad</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:object="${tripulanteEncontrado}">
+					<td th:text="*{documento}"></td>
+					<td th:text="*{apellidos}"></td>
+					<td th:text="*{nombres}"></td>
+					<td th:text="*{nacionalidad}"></td>
+					
+					
+			</tbody>
+		</table>
+		
+		<h1 th:text="${recorrido}"></h1>
+		
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Fecha </th>
+					<th scope="col">Patente Vehiculo</th>
+					<th scope="col">Localidad</th>
+					<th scope="col">Detalle Lugar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="registro:${listaTripulantes}">
+					<td th:text="${registro.fechaHora}"></td>
+					<td th:text="${registro.vehiculo.patente}"></td>
+					<td th:text="${registro.localidad.nombre}"></td>
+					<td th:text="${registro.detalleLugarRegistro}"></td>
+			</tbody>
+		</table>
+		
+	</div>
+
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>

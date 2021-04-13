@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+	<div class="container">
+		<h1 class="text-center" th:text="${titulo}"></h1>
+	</div>
+
+	<div class="container">
+		<form th:action="@{/views/registros/registroFinalizado}" th:object="${registro}" method="post">
+
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">PATENTE</th>
+						<th scope="col">COLOR</th>
+						<th scope="col">TITULAR</th>
+						<th scope="col">MARCA</th>
+						<th scope="col">MODELO</th>
+						<th scope="col">TIPO</th>
+						<th scope="col">NUMERO DE CHASIS</th>
+						<th scope="col">NUMERO DE MOTOR</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="lista:${listaVehiculo}">
+						<th scope="row" th:text="${lista.id}"></th>
+						<td th:text="${lista.patente}"></td>
+						<td th:text="${lista.color}"></td>
+						<td th:text="${lista.titular}"></td>
+						<td th:text="${lista.marca}"></td>
+						<td th:text="${lista.modelo}"></td>
+						<td th:text="${lista.tipo}"></td>
+						<td th:text="${lista.numeroChasis}"></td>
+						<td th:text="${lista.numeroMotor}"></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			<div class="form-group row ml-auto">
+				<button type="button" class="btn btn-primary mr-2"
+					data-toggle="modal" data-target="#modalBuscarTripulante">Buscar</button>
+				<a type="button" class="btn btn-primary" th:href="@{/views/registros/registroTripulante}">Agregar</a>
+			</div>
+
+			<div class="alert-danger text-center" th:if="${formTripulanteErrorMessage}" th:text="${formTripulanteErrorMessage}">Name Error</div>
+
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">DOCUMENTO</th>
+						<th scope="col">APELLIDOS</th>
+						<th scope="col">NOMBRES</th>
+						<th scope="col">NACIONALIDAD</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="listaTripulante: ${tripulantes}">
+						<th scope="row" th:text="${listaTripulante.id}"></th>
+						<td th:text="${listaTripulante.documento}"></td>
+						<td th:text="${listaTripulante.apellidos}"></td>
+						<td th:text="${listaTripulante.nombres}"></td>
+						<td th:text="${listaTripulante.nacionalidad}"></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+
+			<div class="form-group row">
+				<label class="col-md-2" for="localidad">Localidad</label> <select
+					th:field="*{localidad}"
+					class="form-control form-control-sm col-md-6" id="localidad">
+					<option th:each="localidad : ${listaLocalidad}"
+						th:value="${localidad.id}" th:text="${localidad.nombre}"></option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Detalle lugar</label>
+				<textarea th:field="*{detalleLugarRegistro}" class="form-control"
+					id="exampleFormControlTextarea1" rows="3"></textarea>
+			</div>
+
+			<input type="submit" class="btn btn-primary" value="Guardar Registro" >
+		</form>
+
+		<!-- Modal -->
+		<div class="modal fade" id="modalBuscarTripulante" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id="tripulante" th:object="${tripulanteDelForm}"
+						th:action="@{/views/registros/buscarTripulante}" method="post">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Buscar
+								Tripulante</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group row">
+								<label for="documento" class="form-control col-md-4">Documento</label>
+								<input id="documento" class="form-control col-md-6"
+									th:field="*{documento}"
+									placeholder="Ingrese numero de documento">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancelar</button>
+							<input type="submit" class="btn btn-primary" value="Buscar" />
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!--fin Modal -->
+
+	</div>
+
+
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>

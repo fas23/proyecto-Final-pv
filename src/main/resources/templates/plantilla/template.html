@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="utf-8">
+<link th:rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+<link th:rel="stylesheet" type="text/css"
+	th:href="@{/css/tempusdominus-bootstrap-4.min.css}">
+<link th:rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.11.2/css/all.css} " />
+<link th:rel="stylesheet" type="text/css" th:href="@{/css/styles.css} " />
+<link th:rel="stylesheet" type="text/css" th:href="@{/css/signin.css} " />
+<title>SPRING BOOT</title>
+</head>
+<body>
+	<!-- BARRA DE NAVEGACION -->
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+				<ul class="navbar-nav mr-auto">
+
+					<li class="nav-item active"><a class="nav-link"
+						th:href="@{/index}">Inicio <span class="sr-only">(current)</span>
+					</a></li>
+
+					<li class="nav-item"><a class="nav-link" sec:authorize="hasAuthority('administrador')"
+						th:href="@{/views/usuarios/}">Usuario</a></li>
+					<li class="nav-item"><a class="nav-link" sec:authorize="hasAuthority('administrador')"
+						th:href="@{/views/localidades/}">Localidades</a></li>
+					<li class="nav-item"><a class="nav-link" sec:authorize="hasAuthority('registrador')"
+						th:href="@{/views/registros/}">Vehiculo</a></li>
+					<li class="nav-item"><a class="nav-link" sec:authorize="hasAuthority('consultor')"
+						th:href="@{/views/consultas/}">Consultas</a></li>
+					<li class="nav-item"><a class="nav-link" sec:authorize="hasAuthority('consultor')"
+						th:href="@{/views/consultas/cargarRegistro}">Consultas Fecha</a></li>
+				</ul>
+
+				<ul class="navbar-nav ml-auto">
+					<li sec:authorize="!isAuthenticated()"><a
+						class="btn btn-outline-warning" th:href="@{/login}">Iniciar
+							Sesión</a></li>
+
+					<li class="dropdown" sec:authorize="isAuthenticated()"><a
+						class="btn btn-outline-warning dropdown-toggle" href="#"
+						role="button" id="dropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							th:text="${#authentication.getPrincipal().getUsername()}"></span></a>
+
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="#">Perfil</a> <a
+								class="dropdown-item" href="#">Cambiar Contraseña</a>
+							<form th:action="@{/logout}" method="post">
+								<button class="dropdown-item" type="submit">Cerrar
+									Sesión</button>
+							</form>
+
+						</div></li>
+				</ul>
+			</div>
+		</nav>
+
+	</header>
+
+	<!-- CONTENIDO -->
+
+	<div class="container"></div>
+
+	<!-- PIE DE PAGINA -->
+
+	<footer th:fragment="footer" class="text-center bg-dark text-white">
+		<div class="footer">
+			<p>Copyright Fabián Sajama &copy; - 2020</p>
+		</div>
+
+		<script type="text/javascript"
+			th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/moment.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
+
+	</footer>
+
+</body>
+</html>

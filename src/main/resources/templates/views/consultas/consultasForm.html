@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+	<div class="container">
+		<form class="my-2 my-lg-0"
+					th:action="@{/views/consultas/tripulanteBuscado}"
+					th:object="${tripulanteForm}" method="post">
+					
+					<div class="form-group row form-inline">
+						<input class="form-control mr-sm-2 col-md-8" type="search"
+						th:field="*{documento}" placeholder="Ingrese Documento" aria-label="Search">
+						<input class="btn btn-outline-success my-2 my-sm-0" type="submit"
+							value="Buscar">
+					</div>
+						
+					<div class="form-group row">
+						<small class="form-text text-danger col-md-4"
+							th:text="${mensaje}"></small>
+					</div>
+
+<!-- 					<div class="form-group row justify-content-center"> -->
+<!-- 						********** BOTON PARA IR AL FORMULARIO DE VEHICULO ********** -->
+<!-- 						<a class="btn btn-primary mr-1" -->
+<!-- 							th:href="@{/views/registros/vehiculoForm}">GUARDAR</a> -->
+<!-- 							<a th:href="@{/views/registros/}" type="button" class="btn btn-danger mr-2">CANCELAR</a> -->
+<!-- 							<a class="btn btn-primary mr-1" th:href="@{/views/registros/registroTracking}">SIGUIENTE</a> -->
+<!-- 					</div> -->
+				</form>
+	
+	</div>
+
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>
